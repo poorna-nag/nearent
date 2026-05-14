@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505817553520",
+    "project_id": "nearent-d53dd",
+    "storage_bucket": "nearent-d53dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505817553520:android:5c67a056f9d6fc4becf2b5",
+        "android_client_info": {
+          "package_name": "com.nearend.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpYaZPIjR3LzCe0WKHkZ7IAWrnBsyFz_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

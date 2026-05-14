@@ -92,6 +92,7 @@ class _AddListingScreenState extends State<AddListingScreen> {
                 validator: (v) => Validators.required(v, 'Description'),
                 maxLines: 4,
                 maxLength: AppConstants.maxDescriptionLength,
+                keyboardType: TextInputType.multiline,
                 textInputAction: TextInputAction.newline,
               ).animate().fadeIn(delay: 200.ms),
               const SizedBox(height: AppDimensions.lg),
