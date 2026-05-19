@@ -4,6 +4,8 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -45,7 +47,7 @@
 	<key>GMSApiKey</key>
 	<string>YOUR_GOOGLE_MAPS_API_KEY</string>
 
-	<!-- URL Schemes for Google Sign-In -->
+	<!-- URL Schemes for Firebase Phone Auth and Google Sign-In -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -53,7 +55,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.YOUR_REVERSED_CLIENT_ID</string>
+				<string>app-1-505817553520-ios-d2ca00c02e15678fecf2b5</string>
 			</array>
 		</dict>
 	</array>

@@ -9,6 +9,7 @@ import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
+import '../../../../routes/app_routes.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -34,12 +35,11 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthOtpSent) {
-          setState(() {
-            _verificationId = state.verificationId;
-          });
+          setState(() => _verificationId = state.verificationId);
           _startResendTimer();
-        }
-        if (state is AuthError) {
+        } else if (state is AuthAuthenticated) {
+          context.go(AppRoutes.home);
+        } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
           );
@@ -144,8 +144,9 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   }
 
   void _sendOtp() {
-    final phone = _phoneController.text.trim();
-    if (phone.isEmpty) return;
+    final raw = _phoneController.text.trim().replaceAll(RegExp(r'[\s\-()]'), '');
+    if (raw.isEmpty) return;
+    final phone = raw.startsWith('+') ? raw : '+91$raw';
     context.read<AuthBloc>().add(AuthSendPhoneOtp(phone));
   }
 

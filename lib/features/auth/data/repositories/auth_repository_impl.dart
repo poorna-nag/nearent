@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -111,15 +112,27 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<String> sendPhoneOtp(String phoneNumber) async {
-    String verificationId = '';
+    final completer = Completer<String>();
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (_) {},
-      verificationFailed: (e) => throw AuthException(e.message ?? 'OTP send failed'),
-      codeSent: (id, _) => verificationId = id,
-      codeAutoRetrievalTimeout: (_) {},
+      verificationFailed: (e) {
+        if (!completer.isCompleted) {
+          completer.completeError(AuthException(e.message ?? 'OTP send failed'));
+        }
+      },
+      codeSent: (verificationId, _) {
+        if (!completer.isCompleted) {
+          completer.complete(verificationId);
+        }
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        if (!completer.isCompleted) {
+          completer.complete(verificationId);
+        }
+      },
     );
-    return verificationId;
+    return completer.future;
   }
 
   @override

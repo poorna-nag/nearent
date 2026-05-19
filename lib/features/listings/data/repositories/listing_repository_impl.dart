@@ -280,8 +280,9 @@ class ListingRepositoryImpl implements ListingRepository {
           .child(AppConstants.listingImagesPath)
           .child(userId)
           .child(fileName);
-      await ref.putFile(image);
-      return ref.getDownloadURL();
+      final metadata = SettableMetadata(contentType: 'image/jpeg');
+      final snapshot = await ref.putFile(image, metadata);
+      return snapshot.ref.getDownloadURL();
     });
     return Future.wait(futures);
   }
